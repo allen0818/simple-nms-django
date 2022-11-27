@@ -1,0 +1,50 @@
+version: '3.5'
+services:
+
+  db:
+    build: ./db
+    image: nms_db:1.0.0
+    container_name: 'nms-db'
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    env_file: './.env'
+    networks:
+      - simple_nms
+    restart: always      
+
+  api:
+    build: ./django_api
+    command: bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    image: django-api:1.0.0
+    container_name: 'django-api'
+    volumes:
+      - ./django_api:/api
+    ports:
+      - "8000:8000"
+    restart: always
+    env_file: './.env'
+    networks:
+      - simple_nms
+    restart: always      
+
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4
+    env_file: './.env'
+    volumes:
+      - pgadmin:/root/.pgadmin
+    ports:
+      - "5050:80"
+    networks:
+      - simple_nms
+    restart: always
+
+volumes:
+  pgadmin:
+
+networks:
+  simple_nms:
+    name: simple_nms
+  
+
