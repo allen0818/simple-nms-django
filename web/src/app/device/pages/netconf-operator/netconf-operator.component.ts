@@ -1,4 +1,6 @@
+import { NetconfService } from './../../services/netconf.service';
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-netconf-operator',
@@ -7,9 +9,34 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NetconfOperatorComponent implements OnInit {
 
-  constructor() { }
+  reqXmlData: string = "";
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private netconfService: NetconfService,
+
+  ) { }
 
   ngOnInit(): void {
+    this.getCapability('netconf:172.18.50.130:11002');
+  }
+
+  getCapability(deviceId: string) {
+    this.netconfService.getCapability(deviceId).subscribe(resp => {
+      console.log('response', resp);
+
+    }, err => {
+      console.log('error', err);
+    });
+  }
+
+  sendRPC(deviceId: string, xmlData: string) {
+    this.netconfService.sendRPC(deviceId, xmlData).subscribe(resp => {
+      console.log('response', resp);
+
+    }, err => {
+      console.log('error', err);
+    });
   }
 
 }

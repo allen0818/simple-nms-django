@@ -1,3 +1,15 @@
 <div style="height: 80vh;">
+  <div>標題選單</div>
+  <div>
+    <a [routerLink]="['/', 'home']">Home</a>
+  </div>
+  <div>
+    <a [routerLink]="['/', 'home', 'devices', 'netconf']">NETCONF Operator</a>
+  </div>
+  <div>
+    <a [routerLink]="['/', 'home', 'devices']">設備列表</a>
+  </div>
+
+  <h2>主頁面內容</h2>
   <router-outlet></router-outlet>
 </div>
