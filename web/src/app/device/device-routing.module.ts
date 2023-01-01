@@ -6,7 +6,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { NetconfOperatorComponent } from './pages/netconf-operator/netconf-operator.component';
 
 const routes: Routes = [
-  { path: '', component: DeviceListComponent },
+  { path: '', redirectTo: 'netconf-op', pathMatch: 'full' },
   { path: 'netconf-op', component: NetconfOperatorComponent },
   // { path: ':id', component: DeviceDetailComponent },
 ];
