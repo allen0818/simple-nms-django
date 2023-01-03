@@ -1,0 +1,9 @@
+{
+  "/onos-api": {
+    "target": "http://172.18.50.136:8181",
+    "secure": false,
+    "pathRewrite": {
+      "^/onos-api": ""
+    }
+  }
+}

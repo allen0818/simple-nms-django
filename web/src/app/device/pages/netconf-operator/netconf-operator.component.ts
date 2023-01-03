@@ -22,6 +22,7 @@ export class NetconfOperatorComponent implements OnInit {
   }
 
   getCapability(deviceId: string) {
+
     this.netconfService.getCapability(deviceId).subscribe(resp => {
       console.log('response', resp);
 
