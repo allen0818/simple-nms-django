@@ -10,6 +10,8 @@ import { FormBuilder } from '@angular/forms';
 export class NetconfOperatorComponent implements OnInit {
 
   reqXmlData: string = "";
+  defaultDeviceId = "netconf:172.18.50.130:11002";
+  respResult = "";
 
   constructor(
     private formBuilder: FormBuilder,
@@ -25,6 +27,9 @@ export class NetconfOperatorComponent implements OnInit {
 
     this.netconfService.getCapability(deviceId).subscribe(resp => {
       console.log('response', resp);
+      console.log('typeof resp', typeof resp);
+
+      this.respResult = resp;
 
     }, err => {
       console.log('error', err);
@@ -32,8 +37,13 @@ export class NetconfOperatorComponent implements OnInit {
   }
 
   sendRPC(deviceId: string, xmlData: string) {
-    this.netconfService.sendRPC(deviceId, xmlData).subscribe(resp => {
+    const data = { "content": xmlData };
+
+    console.log('data', data);
+
+    this.netconfService.sendRPC(deviceId, data).subscribe(resp => {
       console.log('response', resp);
+      this.respResult = resp;
 
     }, err => {
       console.log('error', err);

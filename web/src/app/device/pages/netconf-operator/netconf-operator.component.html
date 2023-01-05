@@ -1,3 +1,20 @@
 <p>netconf-operator works!</p>
 
-<button (click)="getCapability('netconf:172.18.50.130:11002')">Get Capability</button>
+<div class="action">
+  <button (click)="getCapability(defaultDeviceId)">Get Capability</button>
+  <button (click)="sendRPC(defaultDeviceId, reqXmlData)">Send RPC</button>
+</div>
+
+<div width="50%">
+  <textarea [(ngModel)]="reqXmlData" style="width:300px; height:300px;">
+    Put XML here.
+  </textarea>
+</div>
+Result:
+<div width="50%">
+  <textarea [value]="respResult" style="width:300px; height:300px;">
+    Put XML here.
+  </textarea>
+</div>
+
+

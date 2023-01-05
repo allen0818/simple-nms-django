@@ -21,27 +21,32 @@ export class NetconfService {
   }
 
   private getOnosHttpOptions() {
-    const httpHeaders = {
-      'Authorization': "Basic " + btoa("onos:rocks")
+
+    const options: any = {
+      headers: new HttpHeaders({
+        'Authorization': "Basic " + btoa("onos:rocks")
+      }),
+      responseType: 'text' as 'text',
+      // observe: 'body'
     }
 
-    return { headers: httpHeaders };
+    return options;
   }
 
-  sendRPC(deviceId: string, xmlData: string): Observable<string> {
-    return this.http.post<string>(`${this.baseUrl}/${deviceId}`, xmlData, this.getOnosHttpOptions()).pipe(
+  sendRPC(deviceId: string, data: object): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/data/${deviceId}`, data, this.getOnosHttpOptions()).pipe(
       tap(_ => console.log(`send request to ${this.baseUrl}/${deviceId}`)),
       catchError(this.handleError<string>('failed to sendRPC'))
     );
   }
 
-  getCapability(deviceId: string): Observable<string> {
+  getCapability(deviceId: string): Observable<any> {
     const httpOptions = this.getOnosHttpOptions();
     console.log('httpOptions', httpOptions);
 
-    return this.http.get<string>(`${this.baseUrl}/capabilities/${deviceId}`, httpOptions).pipe(
+    return this.http.get<any>(`${this.baseUrl}/capabilities/${deviceId}`, httpOptions).pipe(
       tap(_ => console.log(`get capability from ${deviceId}`)),
-      catchError(this.handleError<string>('failed to get capability'))
+      catchError(this.handleError<any>('failed to get capability'))
     )
   }
 }
