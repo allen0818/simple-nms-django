@@ -1,8 +1,11 @@
-<p>netconf-operator works!</p>
+<div class="setting">
+  <label for="deviceId">Device Id</label>
+  <input type="text" name="deviceId" size="25" [(ngModel)]="deviceIdStr">
+</div>
 
 <div class="action">
-  <button (click)="getCapability(defaultDeviceId)">Get Capability</button>
-  <button (click)="sendRPC(defaultDeviceId, reqXmlData)">Send RPC</button>
+  <button (click)="getCapability(deviceIdStr)">Get Capability</button>
+  <button (click)="sendRPC(deviceIdStr, reqXmlData)">Send RPC</button>
 </div>
 
 <div width="50%">
@@ -17,4 +20,10 @@ Result:
   </textarea>
 </div>
 
+
+<div >
+  <pre>
+    {{ respResult | xml }}
+  </pre>
+</div>
 

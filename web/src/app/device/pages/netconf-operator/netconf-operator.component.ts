@@ -10,7 +10,7 @@ import { FormBuilder } from '@angular/forms';
 export class NetconfOperatorComponent implements OnInit {
 
   reqXmlData: string = "";
-  defaultDeviceId = "netconf:172.18.50.130:11002";
+  deviceIdStr = "netconf:172.18.50.130:11002";
   respResult = "";
 
   constructor(
@@ -37,7 +37,12 @@ export class NetconfOperatorComponent implements OnInit {
   }
 
   sendRPC(deviceId: string, xmlData: string) {
-    const data = { "content": xmlData };
+
+    const rpcData =
+    `<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+      ${xmlData}
+     </rpc>`;
+    const data = { "content": rpcData };
 
     console.log('data', data);
 
